@@ -1,0 +1,19 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+/* <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet"> */
+
+
+* {
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1C1C1C;
+}
