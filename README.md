@@ -4,3 +4,6 @@ This repo contains a solo project from Scrimba frontend career path, module 9, w
 I built the project on my own and from scratch, following a figma design-pattern and the basic requirements.
 
 More about Scrimba frontend career path: https://scrimba.com/learn/frontend.
+
+OMDb API by Brian Fritz.
+All content licensed under CC BY-NC 4.0.

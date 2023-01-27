@@ -8,7 +8,6 @@
 
 * {
     box-sizing: border-box;
-    border: 1px solid black;
 }
 
 html,
@@ -17,3 +16,49 @@ body {
     padding: 0;
     background-color: #1C1C1C;
 }
+
+body {
+    text-align: center;
+    height: 100vh;
+    font-family: inter, sans-serif;
+}
+
+#app-wrapper {
+    margin: 0 auto;
+    max-width: 768px;
+    height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: lightgrey;
+}
+
+#searchbar {
+    margin-top: 0;
+}
+
+#movies-container {
+    background-color: lightgreen;
+    margin: 0 auto;
+}
+
+
+.film-wrapper {
+    margin: 2em;
+    height: auto;
+    display: flex;
+    gap: 1em;
+    text-align: left;
+}
+
+.poster {
+    height: 9.2em;
+}
+
+.divider {
+    border-bottom: 2px solid grey;
+}
+
