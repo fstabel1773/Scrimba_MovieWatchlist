@@ -13,12 +13,13 @@ document.addEventListener("click", async (event) => {
   if (event.target.id === "search-title-btn") {
     let html = ``;
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=fa0d068f&s=${searchTitle.value}`
+      `http://www.omdbapi.com/?apikey=fa0d068f&s=${searchTitle.value}&page=1`
     );
     const data = await response.json();
+    console.log(data);
     const resultsArray = await data.Search.map(async (film) => {
       const fullFilmObject = await fetch(
-        `http://www.omdbapi.com/?apikey=fa0d068f&i=${film.imdbID}`
+        `http://www.omdbapi.com/?apikey=fa0d068f&i=${film.imdbID}&plot=full`
       );
       const data = await fullFilmObject.json();
       return data;

@@ -1,3 +1,0 @@
-# searching by t-param returns full range of info for only first match
-# search by s-param return short info on multiple matches, ordered in arrays of length 10, accessible via param page=name
-# full info would be accessible via double search: 1) multiple-search, 2) iterate over array the full range search
