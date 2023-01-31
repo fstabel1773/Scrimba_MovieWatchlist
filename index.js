@@ -36,6 +36,8 @@ document.addEventListener("click", async (event) => {
     renderMovies();
   }
   if (event.target.id === "view-more-btn") {
+    page++;
+    renderMovies();
   }
   if (event.target.id === "read-more-btn") {
   }

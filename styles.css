@@ -150,7 +150,9 @@ header > a:hover {
 }
 
 .poster {
+    width: 6.25em;
     height: 9.25em;
+    object-fit: contain;
     border-radius: 2.32941px;
 }
 
