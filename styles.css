@@ -6,6 +6,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet"> */
 
 
+
+
 * {
     box-sizing: border-box;
 }
@@ -14,53 +16,263 @@ html,
 body {
     margin: 0;
     padding: 0;
-    background-color: #1C1C1C;
 }
 
 body {
-    text-align: center;
-    height: 100%;
+    background: #ffffff;
     font-family: inter, sans-serif;
 }
 
 #app-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#header-wrapper {
+    background-image: url("/images/header.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: black;
+}
+
+header {
     margin: 0 auto;
-    max-width: 768px;
+    padding: 0 2.625em;
+    max-width: 550px;
+    height: 13em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header > h1 {
+    font-weight: 800;
+    font-size: 2.625rem;
+    line-height: 1.5em;
+    letter-spacing: -0.045em;
+    color: #FFFFFF;
+}
+
+header > a {
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.25em;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+header > a:hover {
+    color: lightpink;
+    transform: scale(1.3);
+}
+
+#search-wrapper {
+    width: 75%;
+    max-width: 450px;
+    margin: -1.25em auto;
+    z-index: 1;
+}
+
+#searchbar {
+    padding: 0 0.5em;
+    height: 2.375em;
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+}
+
+#searchbar > i {
+    color: #9CA3AF;
+    width: 5%;
+}
+
+#search-title-input {
+    margin-left: 0.25em;
+    width: 70%;
     height: 100%;
-    background-color: #ffffff;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: #6B7280;
+    border: none;
+}
+
+#search-title-input:focus {
+    outline: none;
+}
+
+#search-title-btn {
+    width: 25%;
+    height: 100%;
+    background: inherit;
+    border: none;
+    border-left: 1px solid #D1D5DB;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 20px;
+    color: #374151;
+}
+
+#search-title-btn:hover {
+    cursor: pointer;
+}
+
+#search-movies-container,
+#watchlist-movies-container {
+    margin: 4em auto 0 auto;
+    padding: 0 2.625em;
+    width: 100%;
+    max-width: 550px;
+    min-height: calc(100vh - 13em);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    text-align: left;
+}
+
+#search-movies-container > img,
+#watchlist-movies-container > img {
+    margin: auto auto;
+     width: 50%;
+     max-width: 20em;
+ }
+
+.movie-wrapper {
+    display: flex;
+    gap: 1.25em;
+    margin-top: 0;
+    max-height: 9.25em;
+    overflow: hidden;
+}
+
+.poster {
+    height: 9.25em;
+    border-radius: 2.32941px;
+}
+
+.movie-info-box {
     display: flex;
     flex-direction: column;
 }
 
-header {
-    background-color: lightgrey;
-}
-
-#searchbar {
-    margin-top: 0;
-}
-
-#search-movies-container {
-    width: 100%;
-    height: 100%;
-    background-color: whitesmoke;
-    margin: 0 auto;
-}
-
-
-.film-wrapper {
-    margin: 2em;
-    height: auto;
+.movie-info-line-one {
     display: flex;
+    align-items: center;
     gap: 1em;
-    text-align: left;
 }
 
-.poster {
-    height: 9.2em;
+.movie-info-line-one > h3 {
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.25rem;
 }
+
+
+.movie-info-line-one > span {
+    margin-left: -0.75em;
+}
+
+.movie-info-line-one > span,
+.movie-info-line-two > span,
+.watchlist-btn,
+.movie-info-line-three > span {
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+}
+
+.movie-info-line-one > span,
+.movie-info-line-two > span,
+.watchlist-btn {
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    color: #111827;
+}
+
+.star {
+    color: #FEC654;
+    font-size: 0.75rem;
+}
+
+.movie-info-line-two {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5em;
+}
+
+.watchlist-btn {
+    border: none;
+    background: inherit;
+}
+
+.watchlist-btn:hover {
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+.watchlist-btn > i {
+    color: #111827;
+}
+
+.movie-info-line-three > span {
+    color: #6B7280;
+
+}
+
 
 .divider {
-    border-bottom: 2px solid grey;
+    border: 1.5px solid #E5E7EB;
+    margin-top: 0em;
 }
 
+#view-more-btn {
+    width: fit-content;
+    padding: 0.5em 1em;
+    margin: 0 auto 1.5em;
+    background: #374151;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 20px;
+    color: #ffffff;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+}
+
+#view-more-btn:hover {
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+@media (min-width: 992px) {
+    html {
+        font-size: 20px;
+    }
+
+    header,
+    #search-movies-container,
+    #watchlist-movies-container {
+        max-width: 900px;
+    }
+
+    #search-wrapper {
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 550px) {
+    html {
+        font-size: 12px;
+        min-width: 300px;
+    }
+
+    header {
+        flex-direction: column;
+        justify-content: start;
+    }
+}

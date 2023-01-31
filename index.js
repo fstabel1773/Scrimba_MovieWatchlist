@@ -14,7 +14,7 @@ const removeFromWatchlistBtn = document.getElementById(
 // global variables enabling multi-page search, used by method getMovieData()
 let searchTitle = ``;
 let page = 1; // variable enabling getting more than ten results
-let resultsArray = []; // containing all fetched film-objects from omdb; necessary for implementation of viewMoreBtn
+let resultsArray = []; // containing all fetched movie-objects from omdb; necessary for implementation of viewMoreBtn
 
 document.addEventListener("click", async (event) => {
   if (event.target.id === "search-title-btn") {
@@ -94,48 +94,55 @@ async function getMoviesHtml() {
     movieArray = getWatchlistData();
   }
 
-  let filmsHtml = ``;
+  let moviesHtml = ``;
 
   movieArray.forEach((movieObject) => {
     const watchlistBtn = getWatchlistBtnHtml(movieObject);
 
-    filmsHtml += `
-      <div class="film-wrapper">
+    moviesHtml += `
+      <div class="movie-wrapper">
           <img class="poster" src=${movieObject.Poster} />
-          <div class="film-info-box">
-            <div class="film-info-line-one">
+          <div class="movie-info-box">
+            <div class="movie-info-line-one">
               <h3>${movieObject.Title}</h3>
+              <i class="fa-solid fa-star star"></i>
               <span>${movieObject.imdbRating}</span>
             </div>
-            <div class="film-info-line-two">
+            <div class="movie-info-line-two">
               <span>${movieObject.Runtime}</span>
               <span>${movieObject.Genre}</span>
               ${watchlistBtn}
               </button>
             </div>
-            <div class="film-info-line-three">
-              <p>${movieObject.Plot}</p>
-              <span>Read more</span>
+            <div class="movie-info-line-three">
+              <span>${movieObject.Plot}</span>
             </div>
           </div>
       </div>
       <div class="divider"></div>
   `;
   });
-  filmsHtml += `<button id="view-more-btn">View more</>`;
-  return filmsHtml;
+  moviesHtml += `
+ 
+    <button id="view-more-btn">View more</button>`;
+  return moviesHtml;
 }
 
 //helper function, used by getMoviesHtml() for creating movieHtml
 function getWatchlistBtnHtml(movieObject) {
   if (!localStorage.getItem(movieObject.imdbID)) {
-    return `<button id="add-to-watchlist-btn" data-imdb-id="${movieObject.imdbID}">
-    <span>+</span>
-    <span>Watchlist</span>`;
+    return `
+      <button class="watchlist-btn" id="add-to-watchlist-btn" data-imdb-id="${movieObject.imdbID}">
+        <i class="fa-solid fa-circle-plus plus"></i>
+        <span>Watchlist</span>
+      </button>`;
   } else {
-    return `<button id="remove-from-watchlist-btn" data-imdb-id="${movieObject.imdbID}">
-    <span>-</span>
-    <span>Remove</span>`;
+    return `
+      <button class="watchlist-btn" id="remove-from-watchlist-btn" data-imdb-id="${movieObject.imdbID}">
+        <i class="fa-solid fa-circle-minus"></i>
+        <span>Remove</span>
+      </button>
+      `;
   }
 }
 
