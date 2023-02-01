@@ -117,6 +117,17 @@ async function getMoviesHtml() {
 
   let moviesHtml = ``;
 
+  if (!movieArray.length) {
+    moviesHtml = `
+      <p class="error-message">Your watchlist is looking a little empty...</p>
+      <a href="/index.html" class="watchlist-link">
+        <i class="fa-solid fa-circle-plus plus"></i>
+        <span>Let's add some movies!</span>
+      </a>;
+    `;
+    return moviesHtml;
+  }
+
   movieArray.forEach((movieObject) => {
     const watchlistBtn = getWatchlistBtnHtml(movieObject);
     const plotTeaserHtml = getPlotHtml(movieObject.Plot, false, 150);

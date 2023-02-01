@@ -130,16 +130,15 @@ header > a:hover {
     min-height: calc(100vh - 17em);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 1.5em;
     text-align: left;
 }
 
 #search-movies-container > img,
 #watchlist-movies-container > img {
-    margin: auto auto;
-     width: 50%;
-     max-width: 20em;
+    margin: 10em auto 0;
+    width: 50%;
+    max-width: 20em;
  }
 
 .movie-wrapper {
@@ -245,11 +244,13 @@ cursor: pointer
 }
 
 .error-message {
-    align-self: center;
+    margin-top: 10em;
+    text-align: center;
     font-weight: 700;
     font-size: 1.125rem;
     line-height: 1.25;
     color: #DFDDDD;
+   
 }
 
 .divider {
@@ -275,6 +276,20 @@ cursor: pointer
     transform: scale(1.3);
     cursor: pointer;
 }
+
+.watchlist-link {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.25em;
+    align-self: center;
+    color: #363636;
+}
+
+.watchlist-link:hover {
+    transform: scale(1.3);
+}
+
 
 @media (min-width: 992px) {
     html {
