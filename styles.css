@@ -127,9 +127,10 @@ header > a:hover {
     padding: 0 2.625em;
     width: 100%;
     max-width: 550px;
-    min-height: calc(100vh - 13em);
+    min-height: calc(100vh - 17em);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1.5em;
     text-align: left;
 }
@@ -145,15 +146,17 @@ header > a:hover {
     display: flex;
     gap: 1.25em;
     margin-top: 0;
-    max-height: 9.25em;
+    /* max-height: 10.75em; */
     overflow: hidden;
 }
 
 .poster {
+    margin-top: 1em;
     width: 6.25em;
-    height: 9.25em;
+    height: inherit;
     object-fit: contain;
-    border-radius: 2.32941px;
+    border-radius: 2.3px;
+    align-self: flex-start
 }
 
 .movie-info-box {
@@ -173,7 +176,6 @@ header > a:hover {
     line-height: 1.25rem;
 }
 
-
 .movie-info-line-one > span {
     margin-left: -0.75em;
 }
@@ -181,7 +183,7 @@ header > a:hover {
 .movie-info-line-one > span,
 .movie-info-line-two > span,
 .watchlist-btn,
-.movie-info-line-three > span {
+.movie-info-line-three {
     font-weight: 400;
     font-size: 0.75rem;
     line-height: 1.25rem;
@@ -204,7 +206,7 @@ header > a:hover {
 .movie-info-line-two {
     display: flex;
     justify-content: flex-start;
-    gap: 1.5em;
+    gap: 0.7em;
 }
 
 .watchlist-btn {
@@ -221,11 +223,34 @@ header > a:hover {
     color: #111827;
 }
 
-.movie-info-line-three > span {
+.plot-info {
     color: #6B7280;
-
 }
 
+#read-more-btn,
+#read-less-btn {
+    border: none;
+    background: inherit;
+    color: #6B7280;
+    font-weight: 700;
+}
+
+#read-more-btn:hover,
+#read-less-btn:hover {
+cursor: pointer
+}
+
+.invisible {
+    display: none;
+}
+
+.error-message {
+    align-self: center;
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.25;
+    color: #DFDDDD;
+}
 
 .divider {
     border: 1.5px solid #E5E7EB;

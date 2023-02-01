@@ -80,23 +80,30 @@ async function getFullResults() {
 
 // function returns array of ten movieObjects with detailed DataTransfer; double fetch necessary, because omdb API doesn't provide ability to get detailed results for more than one movie
 async function getMovieData() {
-  const response = await fetch(
-    `http://www.omdbapi.com/?apikey=fa0d068f&s=${searchTitle}&page=${page}`
-  );
-  const basicMovieData = await response.json();
-  const basicMovieDataArray = await basicMovieData.Search;
+  try {
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=fa0d068f&s=${searchTitle}&page=${page}`
+    );
+    const basicMovieData = await response.json();
+    const basicMovieDataArray = await basicMovieData.Search;
 
-  let promisedDetailedMovieDataArray = basicMovieDataArray.map(
-    async (basicMovieObject) => {
-      const detailedMovieObject = await fetch(
-        `http://www.omdbapi.com/?apikey=fa0d068f&i=${basicMovieObject.imdbID}&plot=full`
-      );
-      const detailedMovieData = await detailedMovieObject.json();
-      return detailedMovieData;
-    }
-  );
-
-  return Promise.all(promisedDetailedMovieDataArray);
+    let promisedDetailedMovieDataArray = basicMovieDataArray.map(
+      async (basicMovieObject) => {
+        const detailedMovieObject = await fetch(
+          `http://www.omdbapi.com/?apikey=fa0d068f&i=${basicMovieObject.imdbID}&plot=full`
+        );
+        const detailedMovieData = await detailedMovieObject.json();
+        return detailedMovieData;
+      }
+    );
+    // let bla = await Promise.all(promisedDetailedMovieDataArray);
+    // console.log(bla);
+    return Promise.all(promisedDetailedMovieDataArray);
+  } catch (error) {
+    searchMoviesContainer.innerHTML = `
+      <p class="error-message">Unable to find what you're looking for. Please try another search.</p>
+    `;
+  }
 }
 
 // one function for creating html-string to render, used for searchresults and watchlist
