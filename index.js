@@ -18,6 +18,7 @@ let resultsArray = []; // containing all fetched movie-objects from omdb; necess
 
 document.addEventListener("click", async (event) => {
   if (event.target.id === "search-title-btn") {
+    event.preventDefault();
     resultsArray = []; // starts new search
 
     searchTitle = searchTitleInput.value;
@@ -57,52 +58,17 @@ document.addEventListener("click", async (event) => {
 
 // cleaner to make two functions renderWatchlist() + renderSearch() ?
 async function renderMovies() {
-  if (searchMoviesContainer && searchTitle) {
-    searchMoviesContainer.innerHTML = await getMoviesHtml();
+  if (searchMoviesContainer) {
+    if (searchTitle === ``) {
+      searchMoviesContainer.innerHTML = `
+      <p class="error-message">Unable to find what you're looking for. Please try another search.</p>
+    `;
+    } else {
+      searchMoviesContainer.innerHTML = await getMoviesHtml();
+    }
   }
   if (watchlistMoviesContainer) {
     watchlistMoviesContainer.innerHTML = await getMoviesHtml();
-  }
-}
-
-// function returning updated resultsArray;
-// if only ten results should be shown, returning newMovieData would be enough -> construction enables viewMoreBtn-Function
-async function getFullResults() {
-  const newMovieData = await getMovieData();
-  newMovieData.forEach((movie) => {
-    const resultsIdsArray = resultsArray.map((movie) => {
-      return movie.imdbID;
-    });
-    !resultsIdsArray.includes(movie.imdbID) ? resultsArray.push(movie) : {};
-  });
-  return resultsArray;
-}
-
-// function returns array of ten movieObjects with detailed DataTransfer; double fetch necessary, because omdb API doesn't provide ability to get detailed results for more than one movie
-async function getMovieData() {
-  try {
-    const response = await fetch(
-      `http://www.omdbapi.com/?apikey=fa0d068f&s=${searchTitle}&page=${page}`
-    );
-    const basicMovieData = await response.json();
-    const basicMovieDataArray = await basicMovieData.Search;
-
-    let promisedDetailedMovieDataArray = basicMovieDataArray.map(
-      async (basicMovieObject) => {
-        const detailedMovieObject = await fetch(
-          `http://www.omdbapi.com/?apikey=fa0d068f&i=${basicMovieObject.imdbID}&plot=full`
-        );
-        const detailedMovieData = await detailedMovieObject.json();
-        return detailedMovieData;
-      }
-    );
-    // let bla = await Promise.all(promisedDetailedMovieDataArray);
-    // console.log(bla);
-    return Promise.all(promisedDetailedMovieDataArray);
-  } catch (error) {
-    searchMoviesContainer.innerHTML = `
-      <p class="error-message">Unable to find what you're looking for. Please try another search.</p>
-    `;
   }
 }
 
@@ -204,6 +170,48 @@ function getPlotHtml(fullPlotString, fullLength = false, maxLength = 155) {
   }
 }
 
+// function returning updated resultsArray;
+// if only ten results should be shown, returning newMovieData would be enough -> construction enables viewMoreBtn-Function
+async function getFullResults() {
+  const newMovieData = await getMovieData();
+  newMovieData.forEach((movie) => {
+    const resultsIdsArray = resultsArray.map((movie) => {
+      return movie.imdbID;
+    });
+    !resultsIdsArray.includes(movie.imdbID) ? resultsArray.push(movie) : {};
+  });
+
+  return resultsArray;
+}
+
+// function returns array of ten movieObjects with detailed DataTransfer; double fetch necessary, because omdb API doesn't provide ability to get detailed results for more than one movie
+async function getMovieData() {
+  try {
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=fa0d068f&s=${searchTitle}&page=${page}`
+    );
+    const basicMovieData = await response.json();
+    const basicMovieDataArray = await basicMovieData.Search;
+
+    let promisedDetailedMovieDataArray = basicMovieDataArray.map(
+      async (basicMovieObject) => {
+        const detailedMovieObject = await fetch(
+          `http://www.omdbapi.com/?apikey=fa0d068f&i=${basicMovieObject.imdbID}&plot=full`
+        );
+        const detailedMovieData = await detailedMovieObject.json();
+        return detailedMovieData;
+      }
+    );
+    // let bla = await Promise.all(promisedDetailedMovieDataArray);
+    // console.log(bla);
+    return Promise.all(promisedDetailedMovieDataArray);
+  } catch (error) {
+    searchMoviesContainer.innerHTML = `
+      <p class="error-message">Unable to find what you're looking for. Please try another search.</p>
+    `;
+  }
+}
+
 function addToWatchlist(imdbId) {
   resultsArray.forEach((movieObject) => {
     movieObject.imdbID === imdbId
@@ -224,38 +232,3 @@ function getWatchlistData() {
 }
 
 renderMovies();
-
-// helper function for splitting plot-info, enabling read-more
-// function splitPlotInfo(string) {
-//   const wordArray = string.split(" ");
-//   let lineOne = "";
-//   let lineTwo = "";
-//   let lineMore = "";
-//   wordArray.forEach((word, index) => {
-//     if (index < 6) {
-//       lineOne += `${word} `;
-//     } else if (index < 12) {
-//       lineTwo += `${word} `;
-//     } else if (index >= 12 && index < wordArray.length - 1) {
-//       lineMore += `${word} `;
-//     } else {
-//       lineMore += `${word}`;
-//     }
-//   });
-
-//   return [lineOne, lineTwo, lineMore];
-// }
-
-// // overflow doesn't exist if height of movie-wrapper is set to "auto" -> toggle via read-more-btn
-// function checkForOverflow() {
-//   const movieWrapper = document.querySelectorAll("movie-wrapper");
-//   movieWrapper.forEach((movieHtml) => {
-//     if (movieHtml.offsetHeight < movieHtml.scrollHeight) {
-//       let bla = $(document).ready(() => {
-//         $("div").find(".plot-info");
-//       });
-//       console.log("test");
-//       console.log(bla);
-//     }
-//   });
-// }
