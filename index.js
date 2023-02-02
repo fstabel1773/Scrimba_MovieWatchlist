@@ -16,6 +16,14 @@ let searchTitle = ``;
 let page = 1; // variable enabling getting more than ten results
 let resultsArray = []; // containing all fetched movie-objects from omdb; necessary for implementation of viewMoreBtn
 
+document.addEventListener("input", (event) => {
+  if (event.target.value) {
+    searchTitleBtn.disabled = false;
+  } else {
+    searchTitleBtn.disabled = true;
+  }
+});
+
 document.addEventListener("click", async (event) => {
   if (event.target.id === "search-title-btn") {
     event.preventDefault();
@@ -25,6 +33,7 @@ document.addEventListener("click", async (event) => {
     renderMovies();
 
     searchTitleInput.value = "";
+    searchTitleBtn.disabled = true;
   }
   if (event.target.parentElement.id === "add-to-watchlist-btn") {
     const movieToAdd = event.target.parentElement;
@@ -58,14 +67,8 @@ document.addEventListener("click", async (event) => {
 
 // cleaner to make two functions renderWatchlist() + renderSearch() ?
 async function renderMovies() {
-  if (searchMoviesContainer) {
-    if (searchTitle === ``) {
-      searchMoviesContainer.innerHTML = `
-      <p class="error-message">Unable to find what you're looking for. Please try another search.</p>
-    `;
-    } else {
-      searchMoviesContainer.innerHTML = await getMoviesHtml();
-    }
+  if (searchMoviesContainer && searchTitle) {
+    searchMoviesContainer.innerHTML = await getMoviesHtml();
   }
   if (watchlistMoviesContainer) {
     watchlistMoviesContainer.innerHTML = await getMoviesHtml();

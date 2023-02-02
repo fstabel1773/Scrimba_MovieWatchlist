@@ -106,6 +106,7 @@ header > a:hover {
     outline:auto;
     outline-color: lightpink;
 }
+
 #search-title-input:focus,
 #search-title-btn:focus {
     outline: none;
@@ -128,6 +129,10 @@ header > a:hover {
     cursor: pointer;
 }
 
+#search-title-btn:disabled {
+    opacity: 0.1;
+    cursor: not-allowed;
+}
 
 #search-movies-container,
 #watchlist-movies-container {
