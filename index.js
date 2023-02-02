@@ -123,7 +123,7 @@ async function getMoviesHtml() {
       <div class="divider"></div>
   `;
   });
-  moviesHtml += `<button id="view-more-btn">View more</button>`;
+  moviesHtml += `<button id="view-more-btn" tabindex="-1">View more</button>`;
   return moviesHtml;
 }
 
@@ -131,13 +131,13 @@ async function getMoviesHtml() {
 function getWatchlistBtnHtml(movieObject) {
   if (!localStorage.getItem(movieObject.imdbID)) {
     return `
-      <button class="watchlist-btn" id="add-to-watchlist-btn" data-imdb-id="${movieObject.imdbID}">
+      <button class="watchlist-btn" id="add-to-watchlist-btn" data-imdb-id="${movieObject.imdbID}" tabindex="-1">
         <i class="fa-solid fa-circle-plus plus"></i>
         <span>Watchlist</span>
       </button>`;
   } else {
     return `
-      <button class="watchlist-btn" id="remove-from-watchlist-btn" data-imdb-id="${movieObject.imdbID}">
+      <button class="watchlist-btn" id="remove-from-watchlist-btn" data-imdb-id="${movieObject.imdbID}" tabindex="-1">
         <i class="fa-solid fa-circle-minus"></i>
         <span>Remove</span>
       </button>
@@ -157,13 +157,13 @@ function getPlotHtml(fullPlotString, fullLength = false, maxLength = 155) {
     if (!fullLength) {
       visiblePlotString = fullPlotString.slice(0, maxLength + 1);
       invisiblePlotString = fullPlotString.slice(maxLength + 1);
-      const readMoreBtn = `<input id="read-more-btn" type="button" value="... Read more"</input>`;
+      const readMoreBtn = `<input id="read-more-btn" type="button" value="... Read more" tabindex="-1"></input>`;
 
       return `
         <p class="plot-info">${visiblePlotString}${readMoreBtn}<span class="invisible">${invisiblePlotString}<span></p>
       `;
     } else {
-      const readLessBtn = `<input id="read-less-btn" type="button" value="Read less"</input>`;
+      const readLessBtn = `<input id="read-less-btn" type="button" value="Read less" tabindex="-1"></input>`;
 
       return `<p class="plot-info">${visiblePlotString}${readLessBtn}</p>`;
     }
