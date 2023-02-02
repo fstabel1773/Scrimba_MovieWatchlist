@@ -49,6 +49,12 @@ document.addEventListener("click", async (event) => {
     page++;
     renderMovies();
   }
+  if (event.target.id === "view-less-btn") {
+    resultsArray.splice(resultsArray.length - 10, 10);
+    page--;
+    renderMovies();
+  }
+
   if (event.target.id === "read-more-btn") {
     let plotText = event.target.closest(".plot-info").textContent;
     event.target.closest(".plot-container").innerHTML = getPlotHtml(
@@ -126,7 +132,13 @@ async function getMoviesHtml() {
       <div class="divider"></div>
   `;
   });
-  moviesHtml += `<button id="view-more-btn" tabindex="-1">View more</button>`;
+
+  const viewLessBtnHtml = getViewLessBtnHtml();
+  moviesHtml += `
+    <div class="btn-container">
+      <button id="view-more-btn" tabindex="-1">View more</button>
+      ${viewLessBtnHtml}
+    </div>`;
   return moviesHtml;
 }
 
@@ -146,6 +158,12 @@ function getWatchlistBtnHtml(movieObject) {
       </button>
       `;
   }
+}
+
+function getViewLessBtnHtml() {
+  return resultsArray.length > 10
+    ? `<button id="view-less-btn" tabindex="-1">View less</button>`
+    : ``;
 }
 
 function getPlotHtml(fullPlotString, fullLength = false, maxLength = 155) {
