@@ -15,6 +15,7 @@ const removeFromWatchlistBtn = document.getElementById(
 let searchTitle = ``;
 let page = 1; // variable enabling getting more than ten results
 let resultsArray = []; // containing all fetched movie-objects from omdb; necessary for implementation of viewMoreBtn
+let totalResultsNumber = 0;
 
 document.addEventListener("input", (event) => {
   if (event.target.value) {
@@ -85,7 +86,7 @@ async function renderMovies() {
 async function getMoviesHtml() {
   let movieArray = [];
   if (searchMoviesContainer) {
-    movieArray = await getFullResults();
+    movieArray = await getMovieData();
   } else if (watchlistMoviesContainer) {
     movieArray = getWatchlistData();
   }
@@ -107,7 +108,6 @@ async function getMoviesHtml() {
     const watchlistBtn = getWatchlistBtnHtml(movieObject);
     const plotTeaserHtml = getPlotHtml(movieObject.Plot, false, 150);
 
-    console.log(movieObject);
     moviesHtml += `
       <div class="movie-wrapper">
           <img class="poster" src=${movieObject.Poster} />
@@ -136,9 +136,10 @@ async function getMoviesHtml() {
   });
 
   const viewLessBtnHtml = getViewLessBtnHtml();
+  const viewMoreBtnHtml = getViewMoreBtnHtml();
   moviesHtml += `
     <div class="btn-container">
-      <button id="view-more-btn" tabindex="-1">View more</button>
+      ${viewMoreBtnHtml}
       ${viewLessBtnHtml}
     </div>`;
   return moviesHtml;
@@ -160,6 +161,12 @@ function getWatchlistBtnHtml(movieObject) {
       </button>
       `;
   }
+}
+
+function getViewMoreBtnHtml() {
+  return !resultsArray.length % 10 === 0
+    ? `<button id="view-more-btn" tabindex="-1">View more</button>`
+    : ``;
 }
 
 function getViewLessBtnHtml() {
@@ -214,7 +221,7 @@ async function getMovieData() {
       `http://www.omdbapi.com/?apikey=fa0d068f&s=${searchTitle}&page=${page}`
     );
     const basicMovieData = await response.json();
-    const basicMovieDataArray = await basicMovieData.Search;
+    const basicMovieDataArray = basicMovieData.Search;
 
     let promisedDetailedMovieDataArray = basicMovieDataArray.map(
       async (basicMovieObject) => {
@@ -225,8 +232,6 @@ async function getMovieData() {
         return detailedMovieData;
       }
     );
-    // let bla = await Promise.all(promisedDetailedMovieDataArray);
-    // console.log(bla);
     return Promise.all(promisedDetailedMovieDataArray);
   } catch (error) {
     searchMoviesContainer.innerHTML = `
