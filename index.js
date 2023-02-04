@@ -15,7 +15,6 @@ const removeFromWatchlistBtn = document.getElementById(
 let searchTitle = ``;
 let page = 1; // variable enabling getting more than ten results
 let resultsArray = []; // containing all fetched movie-objects from omdb; necessary for implementation of viewMoreBtn
-let totalResultsNumber = 0;
 
 document.addEventListener("input", (event) => {
   if (event.target.value) {
