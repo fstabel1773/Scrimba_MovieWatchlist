@@ -107,6 +107,7 @@ async function getMoviesHtml() {
     const watchlistBtn = getWatchlistBtnHtml(movieObject);
     const plotTeaserHtml = getPlotHtml(movieObject.Plot, false, 150);
 
+    console.log(movieObject);
     moviesHtml += `
       <div class="movie-wrapper">
           <img class="poster" src=${movieObject.Poster} />
@@ -117,6 +118,7 @@ async function getMoviesHtml() {
               <span>${movieObject.imdbRating}</span>
             </div>
             <div class="movie-info-line-two">
+              <span>${movieObject.Year}</span>
               <span>${movieObject.Runtime}</span>
               <span>${movieObject.Genre}</span>
               ${watchlistBtn}

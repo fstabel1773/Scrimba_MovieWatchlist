@@ -218,6 +218,7 @@ header > a:hover {
 .movie-info-line-two {
     display: flex;
     justify-content: flex-start;
+    flex-wrap:wrap;
     gap: 0.7em;
 }
 
